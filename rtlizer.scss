@@ -1,0 +1,52 @@
+
+// Expermental but intended for pragmatic left <> right switching only.
+// also it can be revamped to a shorter line of code but
+// I prefer to leave it more verbose right now.
+// use it like this @include('text-align') 
+// will compile to html.ar .elm{ text-align:right} and html .elm{ text-align:left}
+// This only meant to be used in straight forward cases.
+/* ----------  Rtlizer Mixin  ---------- */
+
+@mixin rtlizer($prop, $val:null){
+    @if($prop == 'letter-spacing'){
+        html & {
+            letter-spacing: $val;
+        }
+        html.ar & {
+            letter-spacing: 0;
+        }
+    }
+    @if($prop == 'text-align'){
+        html & {
+            text-align: left;
+        }
+        html.ar & {
+            text-align: right;
+        }
+    }
+    @else if($prop == 'float'){
+        html & {
+            float: left;
+        }
+        html.ar & {
+            float: right;
+        }
+    }
+    @else if($prop == 'position'){
+        html & {
+            left: $val;
+        }
+        html.ar & {
+            right: $val;
+        }
+    }
+    @else{
+        html & {
+            #{$prop}-left: $val;
+        }
+        html.ar & {
+             #{$prop}-right: $val;
+        }
+    }
+
+}
